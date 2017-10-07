@@ -18,8 +18,17 @@ object Form1: TForm1
     Top = 40
     Width = 161
     Height = 49
-    Caption = 'Quadrado'
+    Caption = 'Circulo'
     TabOrder = 0
     OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 248
+    Top = 40
+    Width = 161
+    Height = 49
+    Caption = 'Quadrado'
+    TabOrder = 1
+    OnClick = Button2Click
   end
 end
