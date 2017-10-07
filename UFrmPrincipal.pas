@@ -9,7 +9,9 @@ uses
 type
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -23,11 +25,20 @@ implementation
 
 uses
     UQuadrado
+  , UCirculo
   ;
 
 {$R *.dfm}
 
 procedure TForm1.Button1Click(Sender: TObject);
+var
+  loCirculo : TCirculo;
+begin
+  loCirculo := TCirculo.Create(StrToInt(InputBox('Informe o diamentro', '','')));
+  ShowMessage(FloatToStr(loCirculo.CalcularArea));
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
 var
   loQuadrado: TQuadrado;
 begin
