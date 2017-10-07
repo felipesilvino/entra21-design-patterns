@@ -9,7 +9,9 @@ uses
 type
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -23,6 +25,7 @@ implementation
 
 uses
     UQuadrado
+  , URetangulo
   ;
 
 {$R *.dfm}
@@ -33,6 +36,14 @@ var
 begin
   loQuadrado := TQuadrado.Create(25);
   ShowMessage(FloatToStr(loQuadrado.CalcularArea));
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  loRetangulo: TRetangulo;
+begin
+  loRetangulo := TRetangulo.Create(25,10);
+  ShowMessage(FloatToStr(loRetangulo.CalcularArea));
 end;
 
 end.
