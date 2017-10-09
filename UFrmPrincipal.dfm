@@ -15,20 +15,29 @@ object Form1: TForm1
   TextHeight = 13
   object Button1: TButton
     Left = 40
-    Top = 40
+    Top = 128
     Width = 161
     Height = 49
-    Caption = 'Circulo'
+    Caption = 'Quadrado'
     TabOrder = 0
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 248
-    Top = 40
+    Left = 40
+    Top = 56
     Width = 161
     Height = 49
-    Caption = 'Quadrado'
-    TabOrder = 1
+    Caption = 'Circulo'
+    TabOrder = 2
     OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 232
+    Top = 56
+    Width = 161
+    Height = 49
+    Caption = 'Retangulo'
+    TabOrder = 1
+    OnClick = Button3Click
   end
 end

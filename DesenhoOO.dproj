@@ -54,6 +54,7 @@
 			</DCCReference>
 			<DCCReference Include="UFormaGeometrica.pas"/>
 			<DCCReference Include="UQuadrado.pas"/>
+			<DCCReference Include="URetangulo.pas"/>
 			<DCCReference Include="UCirculo.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>

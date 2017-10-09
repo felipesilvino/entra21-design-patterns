@@ -5,6 +5,7 @@ uses
   UFrmPrincipal in 'UFrmPrincipal.pas' {Form1},
   UFormaGeometrica in 'UFormaGeometrica.pas',
   UQuadrado in 'UQuadrado.pas',
+  URetangulo in 'URetangulo.pas',
   UCirculo in 'UCirculo.pas';
 
 {$R *.res}
