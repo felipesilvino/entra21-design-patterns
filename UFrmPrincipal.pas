@@ -29,6 +29,7 @@ uses
     UQuadrado
   , URetangulo
   , UCirculo
+  , UFrmValores
   ;
 
 {$R *.dfm}
@@ -54,8 +55,11 @@ end;
 procedure TForm1.Button3Click(Sender: TObject);
 var
   loRetangulo: TRetangulo;
+  loValores: TFrmValores;
 begin
-  loRetangulo := TRetangulo.Create(25, 10);
+  loValores:= TFrmValores.Create(nil);
+  loValores.ShowModal;
+  loRetangulo := TRetangulo.Create(loValores.valor1,loValores.valor2);
   ShowMessage(FloatToStr(loRetangulo.CalcularArea));
 end;
 

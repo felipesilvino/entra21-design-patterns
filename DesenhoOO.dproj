@@ -56,6 +56,9 @@
 			<DCCReference Include="UQuadrado.pas"/>
 			<DCCReference Include="URetangulo.pas"/>
 			<DCCReference Include="UCirculo.pas"/>
+			<DCCReference Include="UFrmValores.pas">
+				<Form>FrmValores</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
