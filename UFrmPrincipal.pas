@@ -35,9 +35,11 @@ uses
 
 procedure TForm1.Button2Click(Sender: TObject);
 var
+  lsInput: String;
   loCirculo : TCirculo;
 begin
-  loCirculo := TCirculo.Create(StrToInt(InputBox('Informe o diamentro', '','')));
+  lsInput   := InputBox('Informe o diamentro', '','');
+  loCirculo := TCirculo.Create(StrToInt(lsInput));
   ShowMessage(FloatToStr(loCirculo.CalcularArea));
 end;
 
@@ -53,7 +55,7 @@ procedure TForm1.Button3Click(Sender: TObject);
 var
   loRetangulo: TRetangulo;
 begin
-  loRetangulo := TRetangulo.Create(25,10);
+  loRetangulo := TRetangulo.Create(25, 10);
   ShowMessage(FloatToStr(loRetangulo.CalcularArea));
 end;
 

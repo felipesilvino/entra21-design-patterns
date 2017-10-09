@@ -8,9 +8,6 @@ uses
 
 type
   TFormaGeometrica = class abstract
-  private
-    Faces: Integer;
-
   protected
     Cor: TColor;
 

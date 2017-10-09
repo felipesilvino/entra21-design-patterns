@@ -11,6 +11,7 @@ type
   TCirculo = class(TFormaGeometrica)
   private
     FDiametro: Integer;
+
   public
     constructor Create(const ciDiametro: Integer);
     function CalcularArea: Double; override;
@@ -19,16 +20,19 @@ type
 
 implementation
 
+uses
+    Graphics
+  ;
+
 { Circulo }
 
 function TCirculo.CalcularArea: Double;
 var
   Raio: double;
-  Teste: double;
 begin
-  Raio := FDiametro / 2;
-  result := pi*Power(Raio, 2);
-
+  Cor    := clRed;
+  Raio   := FDiametro / 2;
+  Result := PI * Power(Raio, 2);
 end;
 
 constructor TCirculo.Create(const ciDiametro: Integer);

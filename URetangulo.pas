@@ -37,6 +37,7 @@ begin
   FLado := ciLado;
   FBase := ciBase;
 end;
+
 end.
 
 
