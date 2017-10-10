@@ -3,8 +3,8 @@ object Form1: TForm1
   Top = 0
   BorderWidth = 2
   Caption = 'Form1'
-  ClientHeight = 294
-  ClientWidth = 481
+  ClientHeight = 385
+  ClientWidth = 898
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,31 +15,33 @@ object Form1: TForm1
   Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
+  object btnQuadrado: TButton
     Left = 40
-    Top = 128
+    Top = 8
     Width = 161
     Height = 49
     Caption = 'Quadrado'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = btnFormaGeometricaClick
   end
-  object Button2: TButton
+  object btnCirculo: TButton
+    Tag = 2
     Left = 40
-    Top = 56
+    Top = 118
     Width = 161
     Height = 49
     Caption = 'Circulo'
     TabOrder = 2
-    OnClick = Button2Click
+    OnClick = btnFormaGeometricaClick
   end
-  object Button3: TButton
-    Left = 232
-    Top = 56
+  object btnRetangulo: TButton
+    Tag = 1
+    Left = 40
+    Top = 63
     Width = 161
     Height = 49
     Caption = 'Retangulo'
     TabOrder = 1
-    OnClick = Button3Click
+    OnClick = btnFormaGeometricaClick
   end
 end

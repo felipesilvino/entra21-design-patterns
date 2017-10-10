@@ -13,29 +13,36 @@ type
   TRetangulo = class(TFormaGeometrica)
   private
     FBase: Integer;
-    FLado: Integer;
+    FAltura: Integer;
 
   public
-    constructor Create(const ciLado: Integer; const ciBase: Integer);
     function CalcularArea: Double; override;
+    function SolicitaParametros: Boolean; override;
 
-    property LADO: Integer read FLado;
+    property ALTURA: Integer read FAltura;
     property BASE: Integer read FBase;
   end;
 
 implementation
 
+uses
+    Dialogs
+  , SysUtils
+  ;
+
 { TQuadrado }
 
 function TRetangulo.CalcularArea: Double;
 begin
-  Result := FBase * FLado;
+  Result := FBase * FAltura;
 end;
 
-constructor TRetangulo.Create(const ciLado: Integer; const ciBase: Integer);
+function TRetangulo.SolicitaParametros: Boolean;
 begin
-  FLado := ciLado;
-  FBase := ciBase;
+  FBase   := StrToIntDef(InputBox('Informe', 'Base do Retangulo', ''), -1);
+  FAltura := StrToIntDef(InputBox('Informe', 'Altura do Retangulo', ''), -1);
+
+  Result := (FBase > -1) and (FAltura > -1);
 end;
 
 end.

@@ -13,31 +13,32 @@ type
     FDiametro: Integer;
 
   public
-    constructor Create(const ciDiametro: Integer);
     function CalcularArea: Double; override;
+    function SolicitaParametros: Boolean; override;
 
   end;
 
 implementation
 
 uses
-    Graphics
+    SysUtils
+  , Dialogs
   ;
 
 { Circulo }
 
 function TCirculo.CalcularArea: Double;
 var
-  Raio: double;
+  Raio: Double;
 begin
-  Cor    := clRed;
   Raio   := FDiametro / 2;
   Result := PI * Power(Raio, 2);
 end;
 
-constructor TCirculo.Create(const ciDiametro: Integer);
+function TCirculo.SolicitaParametros: Boolean;
 begin
-  FDiametro := ciDiametro;
+  FDiametro := StrToIntDef(InputBox('Informe', 'Diametro do Circulo', ''), -1);
+  Result    := FDiametro > -1;
 end;
 
 end.

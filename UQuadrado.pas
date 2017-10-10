@@ -15,13 +15,18 @@ type
     FLado: Integer;
 
   public
-    constructor Create(const ciLado: Integer);
     function CalcularArea: Double; override;
+    function SolicitaParametros: Boolean; override;
 
     property LADO: Integer read FLado;
   end;
 
 implementation
+
+uses
+    Dialogs
+  , SysUtils
+  ;
 
 { TQuadrado }
 
@@ -30,9 +35,11 @@ begin
   Result := FLado * FLado;
 end;
 
-constructor TQuadrado.Create(const ciLado: Integer);
+function TQuadrado.SolicitaParametros: Boolean;
 begin
-  FLado := ciLado;
+  FLado := StrToIntDef(InputBox('Informe'
+                              , 'Lado do Quadrado', ''), -1);
+  Result := FLado > -1;
 end;
 
 end.

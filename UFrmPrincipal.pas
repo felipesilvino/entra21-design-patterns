@@ -8,12 +8,10 @@ uses
 
 type
   TForm1 = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    btnQuadrado: TButton;
+    btnCirculo: TButton;
+    btnRetangulo: TButton;
+    procedure btnFormaGeometricaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,41 +24,26 @@ var
 implementation
 
 uses
-    UQuadrado
-  , URetangulo
-  , UCirculo
-  , UFrmValores
+    UFrmValores
+  , UFormaGeometrica
   ;
 
 {$R *.dfm}
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.btnFormaGeometricaClick(Sender: TObject);
 var
-  lsInput: String;
-  loCirculo : TCirculo;
+  loFormaGeometrica: TFormaGeometrica;
+  liTag: Integer;
 begin
-  lsInput   := InputBox('Informe o diamentro', '','');
-  loCirculo := TCirculo.Create(StrToInt(lsInput));
-  ShowMessage(FloatToStr(loCirculo.CalcularArea));
-end;
+  liTag             := (Sender as TButton).Tag;
+  loFormaGeometrica := TFormaGeometrica.Fabrica(TTipoFormaGeometrica(liTag));
+  if Assigned(loFormaGeometrica) then
+    begin
+      if loFormaGeometrica.SolicitaParametros then
+        ShowMessage(Format('Area: %f', [loFormaGeometrica.CalcularArea]));
 
-procedure TForm1.Button1Click(Sender: TObject);
-var
-  loQuadrado: TQuadrado;
-begin
-  loQuadrado := TQuadrado.Create(25);
-  ShowMessage(FloatToStr(loQuadrado.CalcularArea));
-end;
-
-procedure TForm1.Button3Click(Sender: TObject);
-var
-  loRetangulo: TRetangulo;
-  loValores: TFrmValores;
-begin
-  loValores:= TFrmValores.Create(nil);
-  loValores.ShowModal;
-  loRetangulo := TRetangulo.Create(loValores.valor1,loValores.valor2);
-  ShowMessage(FloatToStr(loRetangulo.CalcularArea));
+      FreeAndNil(loFormaGeometrica);
+    end;
 end;
 
 end.
