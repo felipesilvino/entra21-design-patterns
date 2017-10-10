@@ -12,6 +12,8 @@ type
     btnCirculo: TButton;
     btnRetangulo: TButton;
     procedure btnFormaGeometricaClick(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
   public
@@ -26,6 +28,7 @@ implementation
 uses
     UFrmValores
   , UFormaGeometrica
+  , ExtCtrls
   ;
 
 {$R *.dfm}
@@ -44,6 +47,22 @@ begin
 
       FreeAndNil(loFormaGeometrica);
     end;
+end;
+
+procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  loShape: TShape;
+begin
+  loShape             := TShape.Create(Self);
+  loShape.Parent      := Self;
+  loShape.Height      := 70;
+  loShape.Width       := 70;
+  loShape.Brush.Color := clRed;
+  loShape.Shape       := stRoundSquare;
+
+  loShape.Top  := Y;
+  loShape.Left := X;
 end;
 
 end.

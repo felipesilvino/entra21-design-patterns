@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderWidth = 2
   Caption = 'Form1'
   ClientHeight = 385
-  ClientWidth = 898
+  ClientWidth = 594
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +13,7 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnMouseDown = FormMouseDown
   PixelsPerInch = 96
   TextHeight = 13
   object btnQuadrado: TButton
