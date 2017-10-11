@@ -2,7 +2,7 @@ program DesenhoOO;
 
 uses
   Forms,
-  UFrmPrincipal in 'UFrmPrincipal.pas' {Form1},
+  UFrmPrincipal in 'UFrmPrincipal.pas' {FrmPrincipal},
   UFormaGeometrica in 'UFormaGeometrica.pas',
   UQuadrado in 'UQuadrado.pas',
   URetangulo in 'URetangulo.pas',
@@ -14,7 +14,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
   Application.CreateForm(TFrmValores, FrmValores);
   Application.Run;
 end.

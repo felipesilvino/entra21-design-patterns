@@ -1,8 +1,8 @@
-object Form1: TForm1
+object FrmPrincipal: TFrmPrincipal
   Left = 0
   Top = 0
   BorderWidth = 2
-  Caption = 'Form1'
+  Caption = 'FrmPrincipal'
   ClientHeight = 385
   ClientWidth = 594
   Color = clBtnFace
@@ -13,36 +13,54 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnMouseDown = FormMouseDown
   PixelsPerInch = 96
   TextHeight = 13
-  object btnQuadrado: TButton
-    Left = 40
-    Top = 8
-    Width = 161
-    Height = 49
-    Caption = 'Quadrado'
+  object gbFerramentas: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 594
+    Height = 105
+    Align = alTop
+    Caption = ' Ferramentas'
     TabOrder = 0
-    OnClick = btnFormaGeometricaClick
+    ExplicitLeft = 176
+    ExplicitTop = 88
+    ExplicitWidth = 185
+    object shCor: TShape
+      Left = 303
+      Top = 30
+      Width = 65
+      Height = 50
+      OnMouseDown = shCorMouseDown
+    end
+    object rgTipoFormaGeometrica: TRadioGroup
+      Left = 16
+      Top = 24
+      Width = 281
+      Height = 57
+      Caption = 'Tipo Forma Geometrica'
+      Columns = 3
+      ItemIndex = 0
+      Items.Strings = (
+        'Quadrado'
+        'Retangulo'
+        'Circulo')
+      TabOrder = 0
+    end
   end
-  object btnCirculo: TButton
-    Tag = 2
-    Left = 40
-    Top = 118
-    Width = 161
-    Height = 49
-    Caption = 'Circulo'
-    TabOrder = 2
-    OnClick = btnFormaGeometricaClick
-  end
-  object btnRetangulo: TButton
-    Tag = 1
-    Left = 40
-    Top = 63
-    Width = 161
-    Height = 49
-    Caption = 'Retangulo'
+  object gbAreaDesenho: TGroupBox
+    Left = 0
+    Top = 105
+    Width = 594
+    Height = 280
+    Align = alClient
+    Caption = #193'rea de Desenho'
     TabOrder = 1
-    OnClick = btnFormaGeometricaClick
+    OnMouseDown = gbAreaDesenhoMouseDown
+    ExplicitTop = 111
+  end
+  object cdSelecao: TColorDialog
+    Left = 528
+    Top = 24
   end
 end

@@ -4,7 +4,8 @@ interface
 
 uses
     UFormaGeometrica
-  , math
+  , Math
+  , Graphics
   ;
 
 type
@@ -13,7 +14,9 @@ type
     FDiametro: Integer;
 
   public
-    function CalcularArea: Double; override;
+    constructor Create(const coCor: TColor);
+
+    function CalculaArea: Double; override;
     function SolicitaParametros: Boolean; override;
 
   end;
@@ -23,16 +26,23 @@ implementation
 uses
     SysUtils
   , Dialogs
+  , ExtCtrls
   ;
 
 { Circulo }
 
-function TCirculo.CalcularArea: Double;
+function TCirculo.CalculaArea: Double;
 var
   Raio: Double;
 begin
   Raio   := FDiametro / 2;
   Result := PI * Power(Raio, 2);
+end;
+
+constructor TCirculo.Create(const coCor: TColor);
+begin
+  Inherited;
+  Shape.Shape := stCircle;
 end;
 
 function TCirculo.SolicitaParametros: Boolean;
