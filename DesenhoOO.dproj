@@ -50,7 +50,7 @@
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="UFrmPrincipal.pas">
-				<Form>Form1</Form>
+				<Form>FrmPrincipal</Form>
 			</DCCReference>
 			<DCCReference Include="UFormaGeometrica.pas"/>
 			<DCCReference Include="UQuadrado.pas"/>

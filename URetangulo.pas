@@ -7,6 +7,7 @@ interface
 
 uses
     UFormaGeometrica
+  , Graphics
   ;
 
 type
@@ -16,7 +17,9 @@ type
     FAltura: Integer;
 
   public
-    function CalcularArea: Double; override;
+    constructor Create(const coCor: TColor);
+
+    function CalculaArea: Double; override;
     function SolicitaParametros: Boolean; override;
 
     property ALTURA: Integer read FAltura;
@@ -28,13 +31,20 @@ implementation
 uses
     Dialogs
   , SysUtils
+  , ExtCtrls
   ;
 
 { TQuadrado }
 
-function TRetangulo.CalcularArea: Double;
+function TRetangulo.CalculaArea: Double;
 begin
   Result := FBase * FAltura;
+end;
+
+constructor TRetangulo.Create(const coCor: TColor);
+begin
+  Inherited;
+  Shape.Shape := stRectangle;
 end;
 
 function TRetangulo.SolicitaParametros: Boolean;

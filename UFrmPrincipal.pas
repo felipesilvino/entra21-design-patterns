@@ -4,22 +4,23 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+  Dialogs, StdCtrls, ExtCtrls;
 
 type
-  TForm1 = class(TForm)
-    btnQuadrado: TButton;
-    btnCirculo: TButton;
-    btnRetangulo: TButton;
-    procedure btnFormaGeometricaClick(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
+  TFrmPrincipal = class(TForm)
+    gbFerramentas: TGroupBox;
+    gbAreaDesenho: TGroupBox;
+    rgTipoFormaGeometrica: TRadioGroup;
+    shCor: TShape;
+    cdSelecao: TColorDialog;
+    procedure shCorMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure gbAreaDesenhoMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   end;
 
 var
-  Form1: TForm1;
+  FrmPrincipal: TFrmPrincipal;
 
 implementation
 
@@ -30,20 +31,29 @@ uses
 
 {$R *.dfm}
 
-procedure TForm1.btnFormaGeometricaClick(Sender: TObject);
+procedure TFrmPrincipal.gbAreaDesenhoMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   loFormaGeometrica: TFormaGeometrica;
-  liTag: Integer;
+  leTipoFormaGeometrica: TTipoFormaGeometrica;
 begin
-  liTag             := (Sender as TButton).Tag;
-  loFormaGeometrica := TFormaGeometrica.Fabrica(TTipoFormaGeometrica(liTag));
+  leTipoFormaGeometrica := TTipoFormaGeometrica(rgTipoFormaGeometrica.ItemIndex);
+  loFormaGeometrica     := TFormaGeometrica.Fabrica(leTipoFormaGeometrica
+                                                  , shCor.Brush.Color);
   if Assigned(loFormaGeometrica) then
     begin
       if loFormaGeometrica.SolicitaParametros then
-        ShowMessage(Format('Area: %f', [loFormaGeometrica.CalcularArea]));
+        loFormaGeometrica.Desenha(X, Y, gbAreaDesenho);
 
       FreeAndNil(loFormaGeometrica);
     end;
+end;
+
+procedure TFrmPrincipal.shCorMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  if cdSelecao.Execute then
+    shCor.Brush.Color := cdSelecao.Color;
 end;
 
 end.
