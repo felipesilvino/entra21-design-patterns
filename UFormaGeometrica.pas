@@ -11,7 +11,8 @@ uses
 type
   TTipoFormaGeometrica = (tfgQuadrado
                         , tfgRetangulo
-                        , tfgCirculo);
+                        , tfgCirculo
+                        , tfgQuadradoArredondado);
 
   TFormaGeometrica = class abstract
   protected
@@ -26,16 +27,20 @@ type
 
     procedure Desenha(const ciX, ciY: Integer; const coParent: TWinControl); virtual;
 
-    class function
-      Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
-              const coCor: TColor):
+    class function Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
+                           const coCor: TColor):
         TFormaGeometrica;
   end;
+
+const
+  CNT_DESCRICAO_FORMA: array[TTipoFormaGeometrica] of String =
+    ('Square', 'Rectangle', 'Circle', 'Rounded Square');
 
 implementation
 
 uses
     UQuadrado
+  , UQuadradoArredondado
   , URetangulo
   , UCirculo
   , Forms
@@ -60,15 +65,14 @@ begin
   Shape.Hint     := Format('Área: %f', [CalculaArea]);
 end;
 
-class function TFormaGeometrica.Fabrica(
-  const ceTipoFormaGeometrica: TTipoFormaGeometrica;
-  const coCor: TColor)
-  : TFormaGeometrica;
+class function TFormaGeometrica.Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
+                                        const coCor: TColor): TFormaGeometrica;
 begin
   case ceTipoFormaGeometrica of
-    tfgQuadrado : Result := TQuadrado.Create(coCor);
-    tfgRetangulo: Result := TRetangulo.Create(coCor);
-    tfgCirculo  : Result := TCirculo.Create(coCor);
+    tfgQuadrado           : Result := TQuadrado.Create(coCor);
+    tfgRetangulo          : Result := TRetangulo.Create(coCor);
+    tfgCirculo            : Result := TCirculo.Create(coCor);
+    tfgQuadradoArredondado: Result := TQuadradoArredondado.Create(coCor);
   else
     Result := nil;
   end;

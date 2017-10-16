@@ -8,27 +8,28 @@ object FrmPrincipal: TFrmPrincipal
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -19
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 23
   object gbFerramentas: TGroupBox
     Left = 0
     Top = 0
     Width = 594
-    Height = 105
+    Height = 145
     Align = alTop
     Caption = ' Ferramentas'
     TabOrder = 0
-    ExplicitLeft = 176
-    ExplicitTop = 88
-    ExplicitWidth = 185
+    DesignSize = (
+      594
+      145)
     object shCor: TShape
-      Left = 303
-      Top = 30
+      Left = 16
+      Top = 87
       Width = 65
       Height = 50
       OnMouseDown = shCorMouseDown
@@ -36,28 +37,31 @@ object FrmPrincipal: TFrmPrincipal
     object rgTipoFormaGeometrica: TRadioGroup
       Left = 16
       Top = 24
-      Width = 281
+      Width = 561
       Height = 57
+      Anchors = [akLeft, akTop, akRight]
       Caption = 'Tipo Forma Geometrica'
-      Columns = 3
-      ItemIndex = 0
-      Items.Strings = (
-        'Quadrado'
-        'Retangulo'
-        'Circulo')
       TabOrder = 0
+    end
+    object cbxCorAleatoria: TCheckBox
+      Left = 96
+      Top = 104
+      Width = 133
+      Height = 17
+      Anchors = [akLeft, akTop, akRight]
+      Caption = 'Cor Aleat'#243'ria'
+      TabOrder = 1
     end
   end
   object gbAreaDesenho: TGroupBox
     Left = 0
-    Top = 105
+    Top = 145
     Width = 594
-    Height = 280
+    Height = 240
     Align = alClient
     Caption = #193'rea de Desenho'
     TabOrder = 1
     OnMouseDown = gbAreaDesenhoMouseDown
-    ExplicitTop = 111
   end
   object cdSelecao: TColorDialog
     Left = 528

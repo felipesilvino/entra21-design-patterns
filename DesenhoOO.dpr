@@ -7,7 +7,8 @@ uses
   UQuadrado in 'UQuadrado.pas',
   URetangulo in 'URetangulo.pas',
   UCirculo in 'UCirculo.pas',
-  UFrmValores in 'UFrmValores.pas' {FrmValores};
+  UFrmValores in 'UFrmValores.pas' {FrmValores},
+  UQuadradoArredondado in 'UQuadradoArredondado.pas';
 
 {$R *.res}
 

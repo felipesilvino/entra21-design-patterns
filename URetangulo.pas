@@ -8,6 +8,7 @@ interface
 uses
     UFormaGeometrica
   , Graphics
+  , Controls
   ;
 
 type
@@ -21,6 +22,9 @@ type
 
     function CalculaArea: Double; override;
     function SolicitaParametros: Boolean; override;
+
+    procedure Desenha(const ciX: Integer; const ciY: Integer;
+      const coParent: TWinControl); override;
 
     property ALTURA: Integer read FAltura;
     property BASE: Integer read FBase;
@@ -45,6 +49,14 @@ constructor TRetangulo.Create(const coCor: TColor);
 begin
   Inherited;
   Shape.Shape := stRectangle;
+end;
+
+procedure TRetangulo.Desenha(const ciX, ciY: Integer;
+  const coParent: TWinControl);
+begin
+  inherited;
+  Shape.Width  := FBase;
+  Shape.Height := FAltura;
 end;
 
 function TRetangulo.SolicitaParametros: Boolean;

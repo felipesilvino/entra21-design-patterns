@@ -13,10 +13,13 @@ type
     rgTipoFormaGeometrica: TRadioGroup;
     shCor: TShape;
     cdSelecao: TColorDialog;
+    cbxCorAleatoria: TCheckBox;
     procedure shCorMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure gbAreaDesenhoMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure FormCreate(Sender: TObject);
+    function GeraCorAleatoria: TColor;
   end;
 
 var
@@ -27,26 +30,52 @@ implementation
 uses
     UFrmValores
   , UFormaGeometrica
+  , Math
   ;
 
 {$R *.dfm}
+
+procedure TFrmPrincipal.FormCreate(Sender: TObject);
+var
+  leTipoFormaGeometrica: TTipoFormaGeometrica;
+begin
+  for leTipoFormaGeometrica := Low(TTipoFormaGeometrica)
+                            to High(TTipoFormaGeometrica) do
+    rgTipoFormaGeometrica.Items.Add(CNT_DESCRICAO_FORMA[leTipoFormaGeometrica]);
+
+  rgTipoFormaGeometrica.ItemIndex := 0;
+  rgTipoFormaGeometrica.Columns   := Integer(High(TTipoFormaGeometrica)) + 1;
+end;
 
 procedure TFrmPrincipal.gbAreaDesenhoMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   loFormaGeometrica: TFormaGeometrica;
   leTipoFormaGeometrica: TTipoFormaGeometrica;
+  loCor: TColor;
 begin
-  leTipoFormaGeometrica := TTipoFormaGeometrica(rgTipoFormaGeometrica.ItemIndex);
-  loFormaGeometrica     := TFormaGeometrica.Fabrica(leTipoFormaGeometrica
-                                                  , shCor.Brush.Color);
-  if Assigned(loFormaGeometrica) then
-    begin
-      if loFormaGeometrica.SolicitaParametros then
-        loFormaGeometrica.Desenha(X, Y, gbAreaDesenho);
+  loCor := ifThen(cbxCorAleatoria.Checked, GeraCorAleatoria, shCor.Brush.Color);
+  case Button of
+    mbLeft:
+      begin
+        leTipoFormaGeometrica := TTipoFormaGeometrica(rgTipoFormaGeometrica.ItemIndex);
+        loFormaGeometrica     := TFormaGeometrica.Fabrica(leTipoFormaGeometrica
+                                                        , loCor);
+        if Assigned(loFormaGeometrica) then
+          begin
+            if loFormaGeometrica.SolicitaParametros then
+              loFormaGeometrica.Desenha(X, Y, gbAreaDesenho);
 
-      FreeAndNil(loFormaGeometrica);
-    end;
+            FreeAndNil(loFormaGeometrica);
+          end;
+      end;
+  end;
+end;
+
+function TFrmPrincipal.GeraCorAleatoria: TColor;
+begin
+  Randomize;
+  Result := RGB(Random(High(Byte)), Random(High(Byte)), Random(High(Byte)));
 end;
 
 procedure TFrmPrincipal.shCorMouseDown(Sender: TObject; Button: TMouseButton;
