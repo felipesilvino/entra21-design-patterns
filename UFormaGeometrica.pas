@@ -20,12 +20,17 @@ type
     Cor: TColor;
     Shape: TShape;
     Selecionado: Boolean;
+    XOriginal: Integer;
+    YOriginal: Integer;
 
     procedure FazSelecao(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X: Integer; Y: Integer);
 
     procedure DesfazSelecao(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X: Integer; Y: Integer);
+
+    procedure MovimentaSelecao(Sender: TObject; Shift: TShiftState;
+      X: Integer; Y: Integer);
 
   public
     constructor Create(const coCor: TColor);
@@ -64,6 +69,7 @@ begin
   Shape.Brush.Color := coCor;
   Shape.OnMouseDown := FazSelecao;
   Shape.OnMouseUp   := DesfazSelecao;
+  Shape.OnMouseMove := MovimentaSelecao;
 
   Cor := coCor;
 end;
@@ -101,16 +107,36 @@ procedure TFormaGeometrica.FazSelecao(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   case Button of
-    mbLeft: Shape.Brush.Color := clBlue;
+     mbLeft:
+     begin
+       Shape.Brush.Color := clBlue;
+       XOriginal         := X;
+       YOriginal         := Y;
+       Selecionado       := True;
+     end;
     mbRight: FreeAndNil(Self);
   end;
+end;
+
+procedure TFormaGeometrica.MovimentaSelecao(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  if Selecionado then
+    begin
+      Shape.Top  := Shape.Top  + (Y - YOriginal);
+      Shape.left := Shape.Left + (X - XOriginal);
+    end;
 end;
 
 procedure TFormaGeometrica.DesfazSelecao(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   case Button of
-    mbLeft: Shape.Brush.Color := Cor;
+    mbLeft:
+      begin
+        Shape.Brush.Color := Cor;
+        Selecionado       := False;
+      end;
   end;
 end;
 
