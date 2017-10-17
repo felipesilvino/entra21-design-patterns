@@ -64,9 +64,11 @@ begin
         if Assigned(loFormaGeometrica) then
           begin
             if loFormaGeometrica.SolicitaParametros then
-              loFormaGeometrica.Desenha(X, Y, gbAreaDesenho);
-
-            FreeAndNil(loFormaGeometrica);
+              begin
+                loFormaGeometrica.Desenha(X, Y, gbAreaDesenho);
+              end
+            else
+              FreeAndNil(loFormaGeometrica);
           end;
       end;
   end;

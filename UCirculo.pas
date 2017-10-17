@@ -22,9 +22,6 @@ type
 
     procedure Desenha(const ciX: Integer; const ciY: Integer;
       const coParent: TWinControl); override;
-
-
-
   end;
 
 implementation

@@ -6,6 +6,7 @@ uses
     Graphics
   , ExtCtrls
   , Controls
+  , Classes
   ;
 
 type
@@ -18,9 +19,17 @@ type
   protected
     Cor: TColor;
     Shape: TShape;
+    Selecionado: Boolean;
+
+    procedure FazSelecao(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X: Integer; Y: Integer);
+
+    procedure DesfazSelecao(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X: Integer; Y: Integer);
 
   public
     constructor Create(const coCor: TColor);
+    destructor Destroy; override;
 
     function CalculaArea: Double; virtual; abstract;
     function SolicitaParametros: Boolean; virtual; abstract;
@@ -53,16 +62,26 @@ constructor TFormaGeometrica.Create(const coCor: TColor);
 begin
   Shape             := TShape.Create(Application);
   Shape.Brush.Color := coCor;
+  Shape.OnMouseDown := FazSelecao;
+  Shape.OnMouseUp   := DesfazSelecao;
+
+  Cor := coCor;
+end;
+
+destructor TFormaGeometrica.Destroy;
+begin
+  FreeAndNil(Shape);
+  inherited;
 end;
 
 procedure TFormaGeometrica.Desenha(const ciX, ciY: Integer;
   const coParent: TWinControl);
 begin
-  Shape.Top      := ciY;
-  Shape.Left     := ciX;
-  Shape.Parent   := coParent;
-  Shape.ShowHint := True;
-  Shape.Hint     := Format('Área: %f', [CalculaArea]);
+  Shape.Top         := ciY;
+  Shape.Left        := ciX;
+  Shape.Parent      := coParent;
+  Shape.ShowHint    := True;
+  Shape.Hint        := Format('Área: %f', [CalculaArea]);
 end;
 
 class function TFormaGeometrica.Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
@@ -75,6 +94,23 @@ begin
     tfgQuadradoArredondado: Result := TQuadradoArredondado.Create(coCor);
   else
     Result := nil;
+  end;
+end;
+
+procedure TFormaGeometrica.FazSelecao(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  case Button of
+    mbLeft: Shape.Brush.Color := clBlue;
+    mbRight: FreeAndNil(Self);
+  end;
+end;
+
+procedure TFormaGeometrica.DesfazSelecao(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  case Button of
+    mbLeft: Shape.Brush.Color := Cor;
   end;
 end;
 

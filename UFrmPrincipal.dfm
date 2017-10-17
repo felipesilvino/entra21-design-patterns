@@ -8,14 +8,14 @@ object FrmPrincipal: TFrmPrincipal
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -19
+  Font.Height = -16
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 23
+  TextHeight = 19
   object gbFerramentas: TGroupBox
     Left = 0
     Top = 0
