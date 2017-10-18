@@ -3,7 +3,8 @@ unit UQuadradoArredondado;
 interface
 
 uses
-    UQuadrado
+    UFormaGeometrica
+  , UQuadrado
   , ExtCtrls
   , Graphics
   ;
@@ -20,8 +21,8 @@ implementation
 
 constructor TQuadradoArredondado.Create(const coCor: TColor);
 begin
-  Inherited;
-  Shape.Shape := stRoundSquare;
+  Inherited Create(tfgQuadradoArredondado, coCor);
+  FShape.Shape := stRoundSquare;
 end;
 
 end.

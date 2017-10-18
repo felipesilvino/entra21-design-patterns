@@ -34,26 +34,26 @@ uses
 
 { Circulo }
 
-function TCirculo.CalculaArea: Double;
-var
-  Raio: Double;
-begin
-  Raio   := FDiametro / 2;
-  Result := PI * Power(Raio, 2);
-end;
-
 constructor TCirculo.Create(const coCor: TColor);
 begin
-  Inherited;
-  Shape.Shape := stCircle;
+  Inherited Create(tfgCirculo, coCor);
+  FShape.Shape := stCircle;
+end;
+
+function TCirculo.CalculaArea: Double;
+var
+  ldRaio: Double;
+begin
+  ldRaio := FDiametro / 2;
+  Result := PI * Power(ldRaio, 2);
 end;
 
 procedure TCirculo.Desenha(const ciX, ciY: Integer;
   const coParent: TWinControl);
 begin
   inherited;
-  Shape.Width  := FDiametro;
-  Shape.Height := FDiametro;
+  FShape.Width  := FDiametro;
+  FShape.Height := FDiametro;
 end;
 
 function TCirculo.SolicitaParametros: Boolean;

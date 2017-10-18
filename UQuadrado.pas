@@ -17,7 +17,7 @@ type
     FLado: Integer;
 
   public
-    constructor Create(const coCor: TColor);
+    constructor Create(const coCor: TColor); overload;
 
     function CalculaArea: Double; override;
     function SolicitaParametros: Boolean; override;
@@ -38,23 +38,23 @@ uses
 
 { TQuadrado }
 
+constructor TQuadrado.Create(const coCor: TColor);
+begin
+  Inherited Create(tfgQuadrado, coCor);
+  FShape.Shape := stSquare;
+end;
+
 function TQuadrado.CalculaArea: Double;
 begin
   Result := FLado * FLado;
-end;
-
-constructor TQuadrado.Create(const coCor: TColor);
-begin
-  Inherited;
-  Shape.Shape := stSquare;
 end;
 
 procedure TQuadrado.Desenha(const ciX, ciY: Integer;
   const coParent: TWinControl);
 begin
   Inherited;
-  Shape.Width  := FLado;
-  Shape.Height := FLado;
+  FShape.Width  := FLado;
+  FShape.Height := FLado;
 end;
 
 function TQuadrado.SolicitaParametros: Boolean;

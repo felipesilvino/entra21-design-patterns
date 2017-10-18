@@ -38,25 +38,25 @@ uses
   , ExtCtrls
   ;
 
-{ TQuadrado }
+{ TRetangulo }
+
+constructor TRetangulo.Create(const coCor: TColor);
+begin
+  Inherited Create(tfgRetangulo, coCor);
+  FShape.Shape := stRectangle;
+end;
 
 function TRetangulo.CalculaArea: Double;
 begin
   Result := FBase * FAltura;
 end;
 
-constructor TRetangulo.Create(const coCor: TColor);
-begin
-  Inherited;
-  Shape.Shape := stRectangle;
-end;
-
 procedure TRetangulo.Desenha(const ciX, ciY: Integer;
   const coParent: TWinControl);
 begin
   inherited;
-  Shape.Width  := FBase;
-  Shape.Height := FAltura;
+  FShape.Width  := FBase;
+  FShape.Height := FAltura;
 end;
 
 function TRetangulo.SolicitaParametros: Boolean;

@@ -17,11 +17,12 @@ type
 
   TFormaGeometrica = class abstract
   protected
-    Cor: TColor;
-    Shape: TShape;
-    Selecionado: Boolean;
-    XOriginal: Integer;
-    YOriginal: Integer;
+    FTipo: TTipoFormaGeometrica;
+    FCor: TColor;
+    FShape: TShape;
+    FSelecionado: Boolean;
+    FXOriginal: Integer;
+    FYOriginal: Integer;
 
     procedure FazSelecao(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X: Integer; Y: Integer);
@@ -33,7 +34,8 @@ type
       X: Integer; Y: Integer);
 
   public
-    constructor Create(const coCor: TColor);
+    constructor Create(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
+                       const coCor: TColor);
     destructor Destroy; override;
 
     function CalculaArea: Double; virtual; abstract;
@@ -44,6 +46,9 @@ type
     class function Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
                            const coCor: TColor):
         TFormaGeometrica;
+
+    property TIPO: TTipoFormaGeometrica read FTipo;
+    property COR: TColor read FCor;
   end;
 
 const
@@ -63,31 +68,33 @@ uses
 
 { TFormaGeometrica }
 
-constructor TFormaGeometrica.Create(const coCor: TColor);
+constructor TFormaGeometrica.Create(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
+                                    const coCor: TColor);
 begin
-  Shape             := TShape.Create(Application);
-  Shape.Brush.Color := coCor;
-  Shape.OnMouseDown := FazSelecao;
-  Shape.OnMouseUp   := DesfazSelecao;
-  Shape.OnMouseMove := MovimentaSelecao;
+  FShape             := TShape.Create(Application);
+  FShape.Brush.Color := coCor;
+  FShape.OnMouseDown := FazSelecao;
+  FShape.OnMouseUp   := DesfazSelecao;
+  FShape.OnMouseMove := MovimentaSelecao;
 
-  Cor := coCor;
+  FCor  := coCor;
+  FTipo := ceTipoFormaGeometrica;
 end;
 
 destructor TFormaGeometrica.Destroy;
 begin
-  FreeAndNil(Shape);
+  FreeAndNil(FShape);
   inherited;
 end;
 
 procedure TFormaGeometrica.Desenha(const ciX, ciY: Integer;
   const coParent: TWinControl);
 begin
-  Shape.Top         := ciY;
-  Shape.Left        := ciX;
-  Shape.Parent      := coParent;
-  Shape.ShowHint    := True;
-  Shape.Hint        := Format('Área: %f', [CalculaArea]);
+  FShape.Top         := ciY;
+  FShape.Left        := ciX;
+  FShape.Parent      := coParent;
+  FShape.ShowHint    := True;
+  FShape.Hint        := Format('Área: %f', [CalculaArea]);
 end;
 
 class function TFormaGeometrica.Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
@@ -109,10 +116,10 @@ begin
   case Button of
      mbLeft:
      begin
-       Shape.Brush.Color := clBlue;
-       XOriginal         := X;
-       YOriginal         := Y;
-       Selecionado       := True;
+       FShape.Brush.Color := clBlue;
+       FXOriginal         := X;
+       FYOriginal         := Y;
+       FSelecionado       := True;
      end;
     mbRight: FreeAndNil(Self);
   end;
@@ -121,10 +128,10 @@ end;
 procedure TFormaGeometrica.MovimentaSelecao(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
 begin
-  if Selecionado then
+  if FSelecionado then
     begin
-      Shape.Top  := Shape.Top  + (Y - YOriginal);
-      Shape.left := Shape.Left + (X - XOriginal);
+      FShape.Top  := FShape.Top  + (Y - FYOriginal);
+      FShape.left := FShape.Left + (X - FXOriginal);
     end;
 end;
 
@@ -134,8 +141,8 @@ begin
   case Button of
     mbLeft:
       begin
-        Shape.Brush.Color := Cor;
-        Selecionado       := False;
+        FShape.Brush.Color := FCor;
+        FSelecionado       := False;
       end;
   end;
 end;
