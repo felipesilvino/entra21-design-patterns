@@ -27,6 +27,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   public
     procedure AtualizouProjeto(const coListaFormaGeometricas: TList<TFormaGeometrica>);
+    procedure OnRemoveFormaGeometrica(Sender: TObject; FormaGeometrica: TFormaGeometrica);
   end;
 
 var
@@ -83,6 +84,7 @@ begin
             if loFormaGeometrica.SolicitaParametros then
               begin
                 loFormaGeometrica.Desenha(X, Y, gbAreaDesenho);
+                loFormaGeometrica.OnRemoveFormaGeometrica := OnRemoveFormaGeometrica;
                 TProjetoDesenho.RetornaUnico.AdicionaFormaGeometrica(loFormaGeometrica);
               end
             else
@@ -96,6 +98,12 @@ function TFrmDesenho.GeraCorAleatoria: TColor;
 begin
   Randomize;
   Result := RGB(Random(High(Byte)), Random(High(Byte)), Random(High(Byte)));
+end;
+
+procedure TFrmDesenho.OnRemoveFormaGeometrica(Sender: TObject;
+  FormaGeometrica: TFormaGeometrica);
+begin
+  TProjetoDesenho.RetornaUnico.RemoveFormaGeometrica(FormaGeometrica);
 end;
 
 procedure TFrmDesenho.shCorMouseDown(Sender: TObject; Button: TMouseButton;

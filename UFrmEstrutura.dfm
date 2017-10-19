@@ -32,9 +32,6 @@ object FrmEstrutura: TFrmEstrutura
     Indent = 19
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = 64
-    ExplicitTop = 88
-    ExplicitWidth = 121
-    ExplicitHeight = 97
+    OnCustomDrawItem = tvEstruturaCustomDrawItem
   end
 end

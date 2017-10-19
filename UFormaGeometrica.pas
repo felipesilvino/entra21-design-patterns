@@ -10,10 +10,15 @@ uses
   ;
 
 type
+  TFormaGeometrica = class;
+
   TTipoFormaGeometrica = (tfgQuadrado
                         , tfgRetangulo
                         , tfgCirculo
                         , tfgQuadradoArredondado);
+
+  TOnRemoveFormaGeometrica = procedure(Sender: TObject;
+                                       FormaGeometrica: TFormaGeometrica) of object;
 
   TFormaGeometrica = class abstract
   protected
@@ -23,6 +28,9 @@ type
     FSelecionado: Boolean;
     FXOriginal: Integer;
     FYOriginal: Integer;
+    FX: Integer;
+    FY: Integer;
+    FOnRemoveFormaGeometrica: TOnRemoveFormaGeometrica;
 
     procedure FazSelecao(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X: Integer; Y: Integer);
@@ -49,7 +57,12 @@ type
 
     property TIPO: TTipoFormaGeometrica read FTipo;
     property COR: TColor read FCor;
+    property X: Integer read FX;
+    property Y: Integer read FY;
+    property OnRemoveFormaGeometrica: TOnRemoveFormaGeometrica read FOnRemoveFormaGeometrica write FOnRemoveFormaGeometrica;
   end;
+
+
 
 const
   CNT_DESCRICAO_FORMA: array[TTipoFormaGeometrica] of String =
@@ -95,6 +108,9 @@ begin
   FShape.Parent      := coParent;
   FShape.ShowHint    := True;
   FShape.Hint        := Format('Área: %f', [CalculaArea]);
+
+  FX := ciX;
+  FY := ciY;
 end;
 
 class function TFormaGeometrica.Fabrica(const ceTipoFormaGeometrica: TTipoFormaGeometrica;
@@ -121,7 +137,13 @@ begin
        FYOriginal         := Y;
        FSelecionado       := True;
      end;
-    mbRight: FreeAndNil(Self);
+    mbRight:
+     begin
+       if Assigned(FOnRemoveFormaGeometrica) then
+         FOnRemoveFormaGeometrica(Sender, Self);
+
+       FreeAndNil(Self);
+     end;
   end;
 end;
 

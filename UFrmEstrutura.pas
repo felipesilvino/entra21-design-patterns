@@ -16,6 +16,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure tvEstruturaCustomDrawItem(Sender: TCustomTreeView;
+      Node: TTreeNode; State: TCustomDrawState; var DefaultDraw: Boolean);
   public
     NoRaiz: TTreeNode;
 
@@ -29,21 +31,27 @@ implementation
 
 {$R *.dfm}
 
+uses
+    UUtilitarios
+  ;
+
 procedure TFrmEstrutura.AtualizouProjeto(
   const coListaFormaGeometricas: TList<TFormaGeometrica>);
 var
   loFormaGeometrica: TFormaGeometrica;
-  loNoFormaGemetrica: TTreeNode;
+  loNoFormaGeometrica: TTreeNode;
 begin
   NoRaiz.DeleteChildren;
   for loFormaGeometrica in coListaFormaGeometricas do
+    with tvEstrutura.Items do
     begin
-      loNoFormaGemetrica :=
-        tvEstrutura.Items.AddChild(NoRaiz
-                            , CNT_DESCRICAO_FORMA[loFormaGeometrica.TIPO]);
+      loNoFormaGeometrica := AddChildObject(NoRaiz
+      , CNT_DESCRICAO_FORMA[loFormaGeometrica.TIPO]
+      , loFormaGeometrica);
 
-      tvEstrutura.Items.AddChild(loNoFormaGemetrica
-                          , Format('Area: %f', [loFormaGeometrica.CalculaArea]));
+      AddChild(loNoFormaGeometrica, Format('Area: %f', [loFormaGeometrica.CalculaArea]));
+      AddChild(loNoFormaGeometrica, Format('X: %d', [loFormaGeometrica.X]));
+      AddChild(loNoFormaGeometrica, Format('Y: %d', [loFormaGeometrica.Y]));
     end;
   tvEstrutura.FullExpand;
 end;
@@ -63,6 +71,16 @@ end;
 procedure TFrmEstrutura.FormDestroy(Sender: TObject);
 begin
   TProjetoDesenho.RetornaUnico.RemoveObservador(Self);
+end;
+
+procedure TFrmEstrutura.tvEstruturaCustomDrawItem(Sender: TCustomTreeView;
+  Node: TTreeNode; State: TCustomDrawState; var DefaultDraw: Boolean);
+var
+  NoAtual: TTreeNode;
+begin
+  NoAtual := TUtilitarios.IfThen(Assigned(Node.Data), Node, Node.Parent);
+  if Assigned(NoAtual) and Assigned(NoAtual.Data) then
+    Sender.Canvas.Font.Color := TFormaGeometrica(NoAtual.Data).COR
 end;
 
 end.

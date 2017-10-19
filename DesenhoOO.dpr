@@ -11,7 +11,8 @@ uses
   UQuadradoArredondado in 'UQuadradoArredondado.pas',
   UProjetoDesenho in 'UProjetoDesenho.pas',
   UFrmPrincipal in 'UFrmPrincipal.pas' {FrmPrincipal},
-  UFrmEstrutura in 'UFrmEstrutura.pas' {FrmEstrutura};
+  UFrmEstrutura in 'UFrmEstrutura.pas' {FrmEstrutura},
+  UUtilitarios in 'UUtilitarios.pas';
 
 {$R *.res}
 
