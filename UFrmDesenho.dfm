@@ -65,8 +65,6 @@ object FrmDesenho: TFrmDesenho
     Caption = #193'rea de Desenho'
     TabOrder = 1
     OnMouseDown = gbAreaDesenhoMouseDown
-    ExplicitLeft = -8
-    ExplicitTop = 137
   end
   object cdSelecao: TColorDialog
     Left = 528

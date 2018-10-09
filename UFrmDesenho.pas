@@ -64,6 +64,8 @@ begin
 
   rgTipoFormaGeometrica.ItemIndex := 0;
   rgTipoFormaGeometrica.Columns   := Integer(High(TTipoFormaGeometrica)) + 1;
+
+  TProjetoDesenho.RetornaUnico.RegistraObservador(Self);
 end;
 
 procedure TFrmDesenho.gbAreaDesenhoMouseDown(Sender: TObject;

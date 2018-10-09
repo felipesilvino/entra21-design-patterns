@@ -31,6 +31,8 @@ type
 
     procedure RegistraObservador(const coObservador: IObservadorProjetoDesenho);
     procedure RemoveObservador(const coObservador: IObservadorProjetoDesenho);
+    procedure NotificouListaFormaGeometricas(Sender: TObject; const FormaGeometrica: TFormaGeometrica; Acao: TCollectionNotification);
+    procedure NotificouListaObservadores(Sender: TObject; const ObservadorProjetoDesenho: IObservadorProjetoDesenho; Acao: TCollectionNotification);
 
     procedure AdicionaFormaGeometrica(const coFormaGeometrica: TFormaGeometrica);
     procedure RemoveFormaGeometrica(const coFormaGeometrica: TFormaGeometrica);
@@ -53,14 +55,27 @@ procedure TProjetoDesenho.AdicionaFormaGeometrica(
   const coFormaGeometrica: TFormaGeometrica);
 begin
   FListaFormaGeometricas.Add(coFormaGeometrica);
+end;
+
+procedure TProjetoDesenho.NotificouListaFormaGeometricas(Sender: TObject;
+  const FormaGeometrica: TFormaGeometrica; Acao: TCollectionNotification);
+begin
   AvisaObservadores;
+end;
+
+procedure TProjetoDesenho.NotificouListaObservadores(Sender: TObject;
+  const ObservadorProjetoDesenho: IObservadorProjetoDesenho;
+  Acao: TCollectionNotification);
+begin
+  case Acao of
+    cnAdded: ObservadorProjetoDesenho.AtualizouProjeto(FListaFormaGeometricas);
+  end;
 end;
 
 procedure TProjetoDesenho.RegistraObservador(
   const coObservador: IObservadorProjetoDesenho);
 begin
   FListaObservadores.Add(coObservador);
-  coObservador.AtualizouProjeto(FListaFormaGeometricas);
 end;
 
 procedure TProjetoDesenho.AvisaObservadores;
@@ -73,8 +88,11 @@ end;
 
 constructor TProjetoDesenho.Create;
 begin
-  FListaObservadores     := TList<IObservadorProjetoDesenho>.Create;
-  FListaFormaGeometricas := TList<TFormaGeometrica>.Create;
+  FListaObservadores          := TList<IObservadorProjetoDesenho>.Create;
+  FListaObservadores.OnNotify := NotificouListaObservadores;
+
+  FListaFormaGeometricas          := TList<TFormaGeometrica>.Create;
+  FListaFormaGeometricas.OnNotify := NotificouListaFormaGeometricas;
 end;
 
 destructor TProjetoDesenho.Destroy;
@@ -88,7 +106,6 @@ procedure TProjetoDesenho.RemoveFormaGeometrica(
   const coFormaGeometrica: TFormaGeometrica);
 begin
   FListaFormaGeometricas.Remove(coFormaGeometrica);
-  AvisaObservadores;
 end;
 
 procedure TProjetoDesenho.RemoveObservador(
