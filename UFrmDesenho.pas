@@ -38,6 +38,7 @@ implementation
 uses
     UFrmValores
   , Math
+  , System.UITypes
   ;
 
 {$R *.dfm}
